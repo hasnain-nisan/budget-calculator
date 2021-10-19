@@ -1,8 +1,15 @@
 import './App.css';
+import Alert from './components/Alert'
+import Form from './components/ExpenceForm'
+import List from './components/ExpenceList'
 
 function App() {
   return (
-      <h1>Hello world!!!</h1>
+      <>
+        <Alert />
+        <Form />
+        <List />
+      </>
   );
 }
 
