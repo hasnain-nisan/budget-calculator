@@ -16,13 +16,54 @@ const initial_expences = [
 console.log(initial_expences)
 
 function App() {
+
+  /** State values
+   * all expences, addExpence
+   */
   const [expences, setExpences] = useState(initial_expences);
+
+  /** Charge state value */
+  const [charge, setCharge] = useState("")
+
+  /** Amount state value */
+  const [amount, setAmount] = useState("")
+
+
+  /** Functionality */
+  /** handleCharge state value */
+  const handleCharge = (e) => {
+    setCharge(e.target.value)
+  }
+
+  /** handleAmount state value */
+  const handleAmount = (e) => {
+    (e.target.validity.valid) && setAmount(e.target.value)
+  }
+
+  /**handle form submit */
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const expence = {id: uuidv4(), charge: charge, amount: amount}
+    
+    if(charge != "" && amount>0)
+    {
+      setExpences([...initial_expences, expence])
+      setAmount("")
+      setCharge("")
+      alert('success')
+    }
+    else
+      //alert
+      alert('Charge cant be empty and amount sholud be bigger than 0')
+  }
+
+
   return (
       <>
         <Alert />
         <h1>Budget Calculator</h1>
         <main className="App">
-          <Form />
+          <Form Charge={[charge, handleCharge]} Amount={[amount, handleAmount]} handleSubmit={handleSubmit} />
           <List expences={expences} />
         </main>
 
