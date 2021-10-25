@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState} from 'react';
 import './App.css';
 import Alert from './components/Alert';
 import Form from './components/ExpenceForm';
@@ -45,7 +45,7 @@ function App() {
     e.preventDefault()
     const expence = {id: uuidv4(), charge: charge, amount: amount}
     
-    if(charge != "" && amount>0)
+    if(charge !== "" && amount>0)
     {
       setExpences([...initial_expences, expence])
       setAmount("")
@@ -77,6 +77,7 @@ function App() {
           </span>
         </h1>
       </>
+
   );
 }
 
