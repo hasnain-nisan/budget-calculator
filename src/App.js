@@ -22,6 +22,9 @@ function App() {
    */
   const [expences, setExpences] = useState(initial_expences);
 
+  /** Alert state */
+  const [alert, setAlert] = useState({show:false})
+
   /** Charge state value */
   const [charge, setCharge] = useState("")
 
@@ -30,6 +33,7 @@ function App() {
 
 
   /** Functionality */
+
   /** handleCharge state value */
   const handleCharge = (e) => {
     setCharge(e.target.value)
@@ -40,27 +44,39 @@ function App() {
     (e.target.validity.valid) && setAmount(e.target.value)
   }
 
+  /** handle alert */
+  const handleAlert = (type, text) => {
+    setAlert({show: true, type, text})
+    setTimeout(() => {
+      setAlert({show: false})
+    }, 3000)
+  }
+
   /**handle form submit */
   const handleSubmit = (e) => {
     e.preventDefault()
-    const expence = {id: uuidv4(), charge: charge, amount: amount}
+
+    const singleExpence = {id: uuidv4(), charge: charge, amount: amount}
     
     if(charge !== "" && amount>0)
     {
-      setExpences([...initial_expences, expence])
+      setExpences([...initial_expences, singleExpence])
+      handleAlert({type:"success", text:"Item added"})
       setAmount("")
       setCharge("")
-      alert('success')
     }
     else
       //alert
-      alert('Charge cant be empty and amount sholud be bigger than 0')
+      handleAlert({type:"danger", text:"Input fields can not be empty!!!"})
   }
 
 
   return (
       <>
-        <Alert />
+        {
+          alert.show && <Alert alert={alert} />
+        }
+
         <h1>Budget Calculator</h1>
         <main className="App">
           <Form Charge={[charge, handleCharge]} Amount={[amount, handleAmount]} handleSubmit={handleSubmit} />
@@ -71,7 +87,7 @@ function App() {
           Total spend: <span className="total"> $
             {
               expences.reduce((acc, curr) => {
-                return acc += curr.amount;
+                return acc += parseInt(curr.amount);
               }, 0)
             }
           </span>
