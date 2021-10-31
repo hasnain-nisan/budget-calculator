@@ -70,6 +70,21 @@ function App() {
       handleAlert({type:"danger", text:"Input fields can not be empty!!!"})
   }
 
+  /** handle delete all button  */
+  const handleDeleteAll = () => {
+    console.log('All deleted')
+  }
+
+  /** handle single delete */
+  const handleSingleDelete = (id) =>{
+    console.log(`Deleted id : ${id}`)
+  }
+
+  /** const edit item */
+  const handleSingleEdit = (id) => {
+    console.log(`Edited id : ${id}`)
+  } 
+
 
   return (
       <>
@@ -79,8 +94,17 @@ function App() {
 
         <h1>Budget Calculator</h1>
         <main className="App">
-          <Form Charge={[charge, handleCharge]} Amount={[amount, handleAmount]} handleSubmit={handleSubmit} />
-          <List expences={expences} />
+          <Form 
+            Charge={[charge, handleCharge]} 
+            Amount={[amount, handleAmount]} 
+            handleSubmit={handleSubmit} 
+          />
+          <List 
+            expences={expences} 
+            handleDeleteAll={handleDeleteAll}
+            handleSingleDelete={handleSingleDelete}
+            handleSingleEdit={handleSingleEdit}
+          />
         </main>
 
         <h1>
