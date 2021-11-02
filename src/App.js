@@ -66,8 +66,20 @@ function App() {
     
     if(charge !== "" && amount>0)
     {
-      setExpences([...initial_expences, singleExpence])
-      handleAlert({type:"success", text:"Item added"})
+      if(edit) 
+      {
+        let tempExpences = expences.map((item) => item.id === editItemId ? {...item, charge, amount} : item )
+        setExpences(tempExpences)
+        setEdit(false)
+        setEditItemId(0)
+        handleAlert({type:"success", text:"Item updated"})
+      }
+      else
+      {
+        setExpences([...initial_expences, singleExpence])
+        handleAlert({type:"success", text:"Item added"})
+      }
+
       setAmount("")
       setCharge("")
     }
@@ -97,6 +109,7 @@ function App() {
     setCharge(charge)
     setAmount(amount)
     setEdit(true)
+    setEditItemId(id)
   } 
 
 
