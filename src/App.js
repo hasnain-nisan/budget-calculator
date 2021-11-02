@@ -31,6 +31,12 @@ function App() {
   /** Amount state value */
   const [amount, setAmount] = useState("")
 
+  /** Edit state value */
+  const [edit, setEdit] = useState(false)
+
+  /** Edit item state value */
+  const [editItemId, setEditItemId] = useState(0)
+
 
   /** Functionality */
 
@@ -86,7 +92,11 @@ function App() {
 
   /** const edit item */
   const handleSingleEdit = (id) => {
-    console.log(`Edited id : ${id}`)
+    const item = expences.find((i) => i.id === id)
+    const {charge, amount} = item
+    setCharge(charge)
+    setAmount(amount)
+    setEdit(true)
   } 
 
 
@@ -102,6 +112,8 @@ function App() {
             Charge={[charge, handleCharge]} 
             Amount={[amount, handleAmount]} 
             handleSubmit={handleSubmit} 
+            edit = {edit}
+            editItemId = {editItemId}
           />
           <List 
             expences={expences} 
