@@ -45,7 +45,7 @@ function App() {
   }
 
   /** handle alert */
-  const handleAlert = (type, text) => {
+  const handleAlert = ({type, text}) => {
     setAlert({show: true, type, text})
     setTimeout(() => {
       setAlert({show: false})
@@ -72,12 +72,16 @@ function App() {
 
   /** handle delete all button  */
   const handleDeleteAll = () => {
+    setExpences([]);
+    handleAlert({type:"danger", text:"All items deleted!!!"})
     console.log('All deleted')
   }
 
   /** handle single delete */
   const handleSingleDelete = (id) =>{
-    console.log(`Deleted id : ${id}`)
+    let tempExpences = expences.filter((item) => item.id !== id)
+    setExpences(tempExpences)
+    handleAlert({type:"danger", text:"Item deleted !!!"})
   }
 
   /** const edit item */
