@@ -1,17 +1,21 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './App.css';
 import Alert from './components/Alert';
 import Form from './components/ExpenceForm';
 import List from './components/ExpenceList';
 import { v4 as uuidv4 } from 'uuid';
 
-const initial_expences = [
-  {id: uuidv4(), charge: "Rent", amount: 1200},
-  {id: uuidv4(), charge: "Education", amount: 1000},
-  {id: uuidv4(), charge: "Food", amount: 1500},
-  {id: uuidv4(), charge: "Journey", amount: 800},
-  {id: uuidv4(), charge: "Cloth", amount: 1000}
-]
+// const initial_expences = [
+//   {id: uuidv4(), charge: "Rent", amount: 1200},
+//   {id: uuidv4(), charge: "Education", amount: 1000},
+//   {id: uuidv4(), charge: "Food", amount: 1500},
+//   {id: uuidv4(), charge: "Journey", amount: 800},
+//   {id: uuidv4(), charge: "Cloth", amount: 1000}
+// ]
+
+/** Get data from local storage */
+const initial_expences = localStorage.getItem("expences") ?
+JSON.parse(localStorage.getItem("expences")) : []
 
 console.log(initial_expences)
 
@@ -112,6 +116,11 @@ function App() {
     setEditItemId(id)
   } 
 
+
+  /** useEffect */
+  useEffect(() => {
+   localStorage.setItem('expences', JSON.stringify(expences))
+  }, [expences])
 
   return (
       <>
