@@ -80,7 +80,7 @@ function App() {
       }
       else
       {
-        setExpences([...initial_expences, singleExpence])
+        setExpences([...expences, singleExpence])
         handleAlert({type:"success", text:"Item added"})
       }
 
